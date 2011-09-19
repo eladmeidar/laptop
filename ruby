@@ -16,3 +16,7 @@ echo "Installing the Taps gem to push and pull SQL databases between development
 
 echo "Installing the pg gem to talk to Postgres databases ..."
   gem install pg --no-rdoc --no-ri
+
+echo "Installing the mongoid gem to talk to MongoDB databases ..."
+  gem install mongoid --no-rdoc --no-ri
+  

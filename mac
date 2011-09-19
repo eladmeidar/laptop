@@ -3,7 +3,7 @@
 echo "Checking for SSH key, generating one if it doesn't exist ..."
   [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
 
-echo "Copying public key to clipboard. Paste it into your Github account ..."
+echo "Copying public key to clipboard. Paste it into your Github account (https://github.com/account/ssh)..."
   [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
   open https://github.com/account/ssh
 
@@ -11,11 +11,14 @@ echo "Installing Homebrew, a good OS X package manager ..."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
   brew update
 
-echo "Installing Postgres, a good open source relational database ..."
+echo "Installing Postgres, a good open-source relational database ..."
   brew install postgres --no-python
 
 echo "Installing Redis, a good key-value database ..."
   brew install redis
+  
+echo "Installing MongoDB, a good open-source document-store database ..."
+  brew install mongodb
 
 echo "Installing ack, a good way to search through files ..."
   brew install ack
@@ -33,4 +36,4 @@ echo "Installing RVM (Ruby Version Manager) ..."
 [[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.zshrc
   source ~/.zshrc
 
-bash < <(curl -s https://raw.github.com/thoughtbot/laptop/master/ruby)
+bash < <(curl -s https://raw.github.com/cbrauchli/laptop/master/ruby)
