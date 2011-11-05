@@ -3,22 +3,18 @@
 echo "Checking for SSH key, generating one if it doesn't exist ..."
   [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
 
-echo "Copying public key to clipboard. Paste it into your Github account (https://github.com/account/ssh)..."
+echo "Copying public key to clipboard. Paste it into your Unfuddle account ..."
   [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
-  open https://github.com/account/ssh
 
 echo "Installing Homebrew, a good OS X package manager ..."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
   brew update
 
-echo "Installing Postgres, a good open-source relational database ..."
-  brew install postgres --no-python
+echo "Installing MySQL, a good open-source relational database ..."
+  brew install mysql
 
 echo "Installing Redis, a good key-value database ..."
   brew install redis
-  
-echo "Installing MongoDB, a good open-source document-store database ..."
-  brew install mongodb
 
 echo "Installing ack, a good way to search through files ..."
   brew install ack
@@ -28,6 +24,9 @@ echo "Installing tmux, a good way to save project state and switch between proje
 
 echo "Installing ImageMagick, good for cropping and re-sizing images ..."
   brew install imagemagick
+
+echo "Installing cloc, to count lines of code (why would you?) ..."
+  brew install cloc
 
 echo "Installing RVM (Ruby Version Manager) ..."
   curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version latest
