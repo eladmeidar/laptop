@@ -10,11 +10,26 @@ echo "Installing Homebrew, a good OS X package manager ..."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
   brew update
 
+echo "Install Git, no other way to source control"
+  brew install git
+
+echo "Installing WGET, downloading files made easy"
+  brew install wget
+
 echo "Installing MySQL, a good open-source relational database ..."
   brew install mysql
 
 echo "Installing Redis, a good key-value database ..."
   brew install redis
+
+echo "Installing MongoDB, an awesome fast database ..."
+  brew install mongodb
+
+echo "Installing Memcached, a caching server"
+  brew install memcached
+
+echo "Install Sphinx, a full text search engine for MySQL"
+  brew install sphinx
 
 echo "Installing ack, a good way to search through files ..."
   brew install ack
@@ -25,14 +40,50 @@ echo "Installing tmux, a good way to save project state and switch between proje
 echo "Installing ImageMagick, good for cropping and re-sizing images ..."
   brew install imagemagick
 
-echo "Installing cloc, to count lines of code (why would you?) ..."
-  brew install cloc
+echo "Downloading Sublime Editor 2, the best editor out there for Rails"
+  cd ~/Downloads
+  mkdir FiverrSetup
+  cd FiverrSetup
+  wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202%20Build%202139.dmg
+  hdiutil mount Sublime%20Text%202%20Build%202139.dmg
+  sudo cp -R "/Volumes/Sublime Text 2/Sublime Text 2.app" /Applications
+  hdiutil unmount "/Volumes/Sublime Text 2/"
 
-echo "Installing RVM (Ruby Version Manager) ..."
-  curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version latest
+echo "Downloading iTerm2, a better terminal for mac"
+  cd ~/Downloads/FiverrSetup
+  wget http://iterm2.googlecode.com/files/iTerm2-1_0_0_20111020.zip
+ 
+echo "Downloading MySQL, the world's most common database"
+  cd ~/Downloads/FiverrSetup
+  wget http://dev.mysql.com/get/Downloads/MySQL-5.1/mysql-5.1.58-osx10.6-x86_64.dmg/from/http://mysql.spd.co.il/
+  hdiutil mount mysql-5.1.58-osx10.6-x86_64.dmg
+
+  sudo installer -pkg /Volumes/mysql-5.1.58-osx10.6-x86_64/mysql-5.1.58-osx10.6-x86_64.pkg -target "/Volumes/Macintosh HD"
+
+  sudo installer -pkg /Volumes/mysql-5.1.58-osx10.6-x86_64/MySQLStartupItem.pkg -target "/Volumes/Macintosh HD"
+
+  sudo cp /Volumes/mysql-5.1.58-osx10.6-x86_64/MySQL.prefPane /Users/`whoami`/Library/PreferencePanes/
+  hdiutil unmount "/Volumes/mysql-5.1.58-osx10.6-x86_64/"
+
+echo "Downloading MySQL Workbench, a GUI tool for MySQL"
+  cd ~/Downloads/FiverrSetup
+  wget http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.34-osx-i686.dmg/from/http://mysql.spd.co.il/ 
+
+echo "Downloading VirtuaBox, virtualization tool"
+  cd ~/Downloads/FiverrSetup
+  wget http://download.virtualbox.org/virtualbox/4.1.8/VirtualBox-4.1.8-75467-OSX.dmg
+  hdiutil mount VirtualBox-4.1.8-75467-OSX.dmg
+  installer_file=`ls /Volumes/VirtualBox/ -1 | grep mpkg`
+  sudo installer -pkg /Volumes/VirtualBox/$installer_file -target "/Volumes/Macintosh HD"
+  hdiutil unmount "/Volumes/VirtualBox/"
+
+echo "Installing RVM (Ruby Version Manager) ... (you might want to skip the first downloading source by Cmd+C, second one is faster)"
+  bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+
+  curl -s https://raw.github.com/gist/c8cee784891358b5d38c/e25416aca463c9ad55e42a1583b1e0fa1aceac25/bash_profile.bash | sed "s/eladmeidar/`whoami`/g" > ~/.bash_profile
   echo "
-# RVM
-[[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.zshrc
-  source ~/.zshrc
+# RVM safe scripts - on top you'll see the default scripts either one should work
+[[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.bash_profile
+  source ~/.bash_profile
 
-bash < <(curl -s https://raw.github.com/cbrauchli/laptop/master/ruby)
+bash < <(curl -s https://raw.github.com/eladmeidar/laptop/master/ruby)

@@ -1,15 +1,14 @@
-echo "Installing Ruby 1.9.2 stable and making it the default Ruby ..."
-  rvm install 1.9.2-p290
-  rvm use 1.9.2 --default
+echo "Installing Ruby 1.8.7 stable and making it the default Ruby ..."
+  rvm install 1.8.7
+  rvm use 1.8.7 --default
 
-echo "Installing Rails to write and run web applications ..."
-  gem install rails --no-rdoc --no-ri
+echo "Install Rubygems 1.3.7"
+	
+echo "Set a ~/.gemrc file that will remove all the crap from gem installations (no-ri and no-rdoc)"
+	echo "
+install: --no-rdoc --no-ri
+update: --no-rdoc --no-ri" >> ~/.gemrc
+  source ~/.gemrc
 
-echo "Installing the Heroku gem to interact with the http://heroku.com API ..."
-  gem install heroku --no-rdoc --no-ri
-
-echo "Installing the Taps gem to push and pull SQL databases between development, staging, and production environments ..."
-  gem install taps --no-rdoc --no-ri
-
-echo "Installing the mysql gem to talk to MySQL databases ..."
-  gem install mysql --no-rdoc --no-ri
+echo "Install Bundler (1.0.12), the gem management tool"
+	gem install -v=1.0.12 bundler 
