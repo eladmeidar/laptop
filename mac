@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "Create an encrypted image to store your codez in"
+hdiutil create -size 20g -fs HFS+J -encryption AES-128 -stdinpass ~/Documents/fiverr-dev-test.dmg
+
 echo "Checking for SSH key, generating one if it doesn't exist ..."
   [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
 
@@ -16,9 +19,6 @@ echo "Install Git, no other way to source control"
 echo "Installing WGET, downloading files made easy"
   brew install wget
 
-echo "Installing MySQL, a good open-source relational database ..."
-  brew install mysql
-
 echo "Installing Redis, a good key-value database ..."
   brew install redis
 
@@ -29,7 +29,7 @@ echo "Installing Memcached, a caching server"
   brew install memcached
 
 echo "Install Sphinx, a full text search engine for MySQL"
-  brew install sphinx
+  brew install sphinx --with-mysql
 
 echo "Installing ack, a good way to search through files ..."
   brew install ack
@@ -77,10 +77,13 @@ echo "Downloading VirtuaBox, virtualization tool"
   sudo installer -pkg /Volumes/VirtualBox/$installer_file -target "/Volumes/Macintosh HD"
   hdiutil unmount "/Volumes/VirtualBox/"
 
+echo "Setting up bash scripts"
+curl -s https://raw.github.com/gist/c8cee784891358b5d38c/e25416aca463c9ad55e42a1583b1e0fa1aceac25/bash_profile.bash | sed "s/eladmeidar/`whoami`/g" > ~/.bash_profile
+curl -s https://gist.github.com/raw/06e18dee2c5d97a0ae6b/fe93747c93a7b65f4657b56ef3962d64b48e3eb7/bash_completion.bash > ~/.git-completion.bash
+source ~/.bash_profile
+
 echo "Installing RVM (Ruby Version Manager) ... (you might want to skip the first downloading source by Cmd+C, second one is faster)"
   bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
-
-  curl -s https://raw.github.com/gist/c8cee784891358b5d38c/e25416aca463c9ad55e42a1583b1e0fa1aceac25/bash_profile.bash | sed "s/eladmeidar/`whoami`/g" > ~/.bash_profile
   echo "
 # RVM safe scripts - on top you'll see the default scripts either one should work
 [[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.bash_profile
